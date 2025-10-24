@@ -14,10 +14,18 @@ import {
 } from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
 
-import { ROUTES } from "../constants/routes";
-import Link from "next/link";
+import { useSignupController } from "../app/account/signup/useSignupController";
+import { Spinner } from "./ui/spinner";
 
-export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+interface SignupFormProps extends React.ComponentProps<typeof Card> {
+  onChangeTab: (value: string) => void;
+}
+
+export function SignupForm({ onChangeTab, ...props }: SignupFormProps) {
+  const { register, errors, handleSubmit, isLoading } = useSignupController({
+    onChangeTab,
+  });
+
   return (
     <Card {...props}>
       <CardHeader>
@@ -27,11 +35,17 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="name">Nome</FieldLabel>
-              <Input id="name" type="text" placeholder="John Doe" required />
+              <Input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                {...register("name")}
+                error={errors.name?.message}
+              />
             </Field>
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -39,29 +53,35 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 id="email"
                 type="email"
                 placeholder="example@gmail.com"
-                required
+                {...register("email")}
+                error={errors.email?.message}
               />
             </Field>
             <Field>
               <FieldLabel htmlFor="password">Senha</FieldLabel>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                {...register("password")}
+                error={errors.password?.message}
+              />
               <FieldDescription>
                 Deve ter pelo menos 8 caracteres.
               </FieldDescription>
             </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                Confirmar Senha
-              </FieldLabel>
-              <Input id="confirm-password" type="password" required />
-              <FieldDescription>Por favor confirme sua senha.</FieldDescription>
-            </Field>
             <FieldGroup>
               <Field>
-                <Button type="submit">Criar conta</Button>
+                <Button type="submit">
+                  {isLoading ? <Spinner /> : "Criar conta"}
+                </Button>
                 <FieldDescription className="px-6 text-center">
                   Já tem uma conta?{" "}
-                  <Link href={ROUTES.auth.signIn}>Entrar</Link>
+                  <button
+                    onClick={() => onChangeTab("signin")}
+                    className="text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
+                  >
+                    Entrar
+                  </button>
                 </FieldDescription>
               </Field>
             </FieldGroup>
