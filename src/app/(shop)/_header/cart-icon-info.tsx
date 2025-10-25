@@ -1,9 +1,12 @@
 import { Button } from "@/src/components/ui/button";
+import { useCartStore } from "@/src/store/cart";
 import { ShoppingCart } from "lucide-react";
 
 export function CartIconInfo() {
-  const itemCount = 12;
+  const items = useCartStore((state) => state.items);
+  const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalItem = itemCount >= 100 ? `+99` : itemCount;
+
   return (
     <Button
       variant="default"
