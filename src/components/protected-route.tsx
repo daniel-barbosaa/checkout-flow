@@ -14,7 +14,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const signedIn = getStorageItem("signedIn");
+      const signedIn = getStorageItem("signedin");
 
       if (!signedIn) {
         router.replace("/account");

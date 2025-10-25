@@ -35,7 +35,7 @@ export function useSigninController() {
         password: data.password,
       });
 
-      setStorageItem("signedIn", true);
+      setStorageItem("signedin", true);
       setStorageItem("user", user);
       reset();
 

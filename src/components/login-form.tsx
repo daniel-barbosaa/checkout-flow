@@ -61,7 +61,7 @@ export function LoginForm({
                 />
               </Field>
               <Field>
-                <Button type="submit">
+                <Button type="submit" disabled={isLoading}>
                   {isLoading ? <Spinner /> : "Entrar"}
                 </Button>
                 <FieldDescription className="text-center">

@@ -71,7 +71,7 @@ export function SignupForm({ onChangeTab, ...props }: SignupFormProps) {
             </Field>
             <FieldGroup>
               <Field>
-                <Button type="submit">
+                <Button type="submit" disabled={isLoading}>
                   {isLoading ? <Spinner /> : "Criar conta"}
                 </Button>
                 <FieldDescription className="px-6 text-center">
