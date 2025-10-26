@@ -39,7 +39,7 @@ export function useSigninController() {
       setStorageItem("user", user);
       reset();
 
-      router.replace(ROUTES.shop.main);
+      router.push(ROUTES.shop.main);
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
       toast.error(

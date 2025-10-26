@@ -1,13 +1,17 @@
 import { UserDropdown } from "./user-dropdown";
+import Link from "next/link";
 
 import { CartIconInfo } from "./cart-icon-info";
+import { Store } from "lucide-react";
+
+import { ROUTES } from "@/src/constants/routes";
 
 export function Header() {
   return (
     <header className="flex items-center px-6 py-4">
-      <div className="flex items-center gap-3 font-medium">
-        <h1 className="hidden text-3xl sm:block">TechStore</h1>
-      </div>
+      <Link href={ROUTES.shop.main}>
+        <Store className="h-10 w-auto" />
+      </Link>
 
       <section className="ml-auto flex items-center gap-2">
         <CartIconInfo />

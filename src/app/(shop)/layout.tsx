@@ -1,4 +1,3 @@
-"use client";
 import ProtectedRoute from "@/src/components/protected-route";
 import { ReactNode } from "react";
 import { Header } from "./_header";

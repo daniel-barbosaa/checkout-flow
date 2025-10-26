@@ -38,7 +38,7 @@ export function UserDropdown() {
     const signedIn = getStorageItem("signedin");
     if (!signedIn) return;
     removeStorageItem(["signedin", "user"]);
-    router.replace(ROUTES.auth.account);
+    router.push(ROUTES.auth.account);
   }
   return (
     <DropdownMenu>
