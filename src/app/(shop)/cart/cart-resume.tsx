@@ -1,14 +1,14 @@
 "use client";
 import { Minus, Plus, X } from "lucide-react";
-import { ROUTES } from "@/src/constants/routes";
+
 import NikeImage from "@/public/nike.jpeg";
 import Image from "next/image";
 import { Button } from "@/src/components/ui/button";
 import { formatPrice } from "@/src/utils/formatters/format-price";
 import { useCartStore } from "@/src/store/cart";
-import { useRouter } from "next/navigation";
+
+import { CartEmpty } from "./cart-empty";
 export function CartResume() {
-  const router = useRouter();
   const items = useCartStore((state) => state.items);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -42,15 +42,7 @@ export function CartResume() {
   return (
     <>
       {cartEmpty ? (
-        <div className="flex flex-col items-center justify-center gap-4 p-6">
-          <h2 className="text-xl font-semibold">Seu carrinho está vazio 😔</h2>
-          <p className="text-muted-foreground text-center">
-            Adicione produtos no catálogo para começar seu pedido.
-          </p>
-          <Button onClick={() => router.push(ROUTES.shop.main)}>
-            Explore o catálogo
-          </Button>
-        </div>
+        <CartEmpty />
       ) : (
         <>
           <div className="flex w-full max-w-3xl flex-col divide-y divide-gray-200">
