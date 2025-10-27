@@ -6,13 +6,14 @@ import {
   signInFormSchema,
   signInFormDefaultValues,
 } from "./signin-form-schema";
-import { api } from "@/src/services/api";
 import { setStorageItem } from "../../../helpers/local.storage";
 
-import { AxiosError } from "axios";
+import { loginUser } from "@/src/services/local-auth";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ROUTES } from "@/src/constants/routes";
+import { wait } from "@/src/utils/delay";
 
 export function useSigninController() {
   const router = useRouter();
@@ -30,21 +31,18 @@ export function useSigninController() {
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     setLoading(true);
     try {
-      const { data: user } = await api.post("/auth/login", {
-        email: data.email,
-        password: data.password,
-      });
+      await wait(1000);
+      loginUser(data.email, data.password);
 
       setStorageItem("signedin", true);
-      setStorageItem("user", user);
       reset();
-
       router.push(ROUTES.shop.main);
     } catch (err) {
-      const error = err as AxiosError<{ error: string }>;
-      toast.error(
-        error.response?.data?.error || "Ocorreu um erro ao fazer login ",
-      );
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Erro inesperado, tente novamente!";
+      toast.error(message);
     } finally {
       setLoading(false);
     }

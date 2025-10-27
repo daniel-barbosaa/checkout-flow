@@ -11,34 +11,41 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { ROUTES } from "@/src/constants/routes";
-import { getStorageItem, removeStorageItem } from "@/src/helpers/local.storage";
+import { getStorageItem } from "@/src/helpers/local.storage";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { STORAGE_KEYS } from "@/src/constants/storage-keys";
+import { type User as UserLogged } from "@/src/types/users";
+import { logoutUser } from "@/src/services/local-auth";
+import { wait } from "@/src/utils/delay";
+import { Spinner } from "@/src/components/ui/spinner";
 
-interface UserDropdownProps {
-  id: string;
-  email: string;
-  name: string;
-}
 export function UserDropdown() {
-  const [user, setUser] = useState<UserDropdownProps | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState<UserLogged | null>(null);
+  const router = useRouter();
+  const { currentUserKey, signedIn } = STORAGE_KEYS;
   const firstName = user?.name.split(" ")[0];
 
   useEffect(() => {
     function loadData() {
-      const storedUser = getStorageItem("user") as UserDropdownProps | null;
+      const storedUser = getStorageItem(currentUserKey) as UserLogged | null;
       setUser(storedUser);
     }
     loadData();
-  }, []);
+  }, [currentUserKey]);
 
-  const router = useRouter();
-  function handleLogout() {
-    const signedIn = getStorageItem("signedin");
-    if (!signedIn) return;
-    removeStorageItem(["signedin", "user"]);
-    router.push(ROUTES.auth.account);
+  async function handleLogout() {
+    const isSignedIn = getStorageItem(signedIn);
+    setIsLoading(true);
+    if (!isSignedIn) return;
+    await wait(1000);
+
+    logoutUser();
+
+    setIsLoading(false);
+    router.push(ROUTES.auth);
   }
   return (
     <DropdownMenu>
@@ -53,7 +60,9 @@ export function UserDropdown() {
             </AvatarFallback>
           </Avatar>
 
-          <span className="ml-2 hidden md:inline">{firstName}</span>
+          <span className="ml-2 hidden md:inline">
+            {isLoading ? <Spinner /> : firstName}
+          </span>
           <ChevronDown className="text-muted-foreground ml-1 hidden md:inline" />
         </Button>
       </DropdownMenuTrigger>

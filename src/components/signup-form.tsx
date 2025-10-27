@@ -14,7 +14,7 @@ import {
 } from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
 
-import { useSignupController } from "../app/account/signup/signup-controller";
+import { useSignupController } from "../app/(account)/signup/signup-controller";
 import { Spinner } from "./ui/spinner";
 
 interface SignupFormProps extends React.ComponentProps<typeof Card> {

@@ -5,11 +5,10 @@ import {
   SignUpFormSchema,
   signupFormSchema,
 } from "./signup-form-schema";
-
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
-import { api } from "@/src/services/api";
 import { useState } from "react";
+import { registerUser } from "@/src/services/local-auth";
+import { wait } from "@/src/utils/delay";
 
 interface useSignupControllerProps {
   onChangeTab: (value: string) => void;
@@ -30,7 +29,8 @@ export function useSignupController({ onChangeTab }: useSignupControllerProps) {
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     setLoading(true);
     try {
-      await api.post("/auth/signup", {
+      await wait(1000);
+      registerUser({
         name: data.name,
         email: data.email,
         password: data.password,
@@ -40,10 +40,11 @@ export function useSignupController({ onChangeTab }: useSignupControllerProps) {
       reset();
       onChangeTab("signin");
     } catch (err) {
-      const error = err as AxiosError<{ error: string }>;
-      toast.error(
-        error.response?.data?.error || "Ocorreu um erro ao criar conta",
-      );
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Erro inesperado, tente novamente!";
+      toast.error(message);
     } finally {
       setLoading(false);
     }

@@ -4,15 +4,14 @@ import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getStorageItem } from "../helpers/local.storage";
-
 import { STORAGE_KEYS } from "../constants/storage-keys";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "@/src/constants/routes";
 
-interface ProtectedRouteProps {
+interface PublicRouteProps {
   children: ReactNode;
 }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+export default function PublicRoute({ children }: PublicRouteProps) {
   const router = useRouter();
   const { signedIn } = STORAGE_KEYS;
   const [isChecking, setIsChecking] = useState(true);
@@ -21,10 +20,11 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     const checkAuth = async () => {
       const isSignedIn = getStorageItem(signedIn);
 
-      if (!isSignedIn) {
-        router.replace(ROUTES.auth);
+      if (isSignedIn) {
+        router.replace(ROUTES.shop.main);
         return;
       }
+
       setIsChecking(false);
     };
 

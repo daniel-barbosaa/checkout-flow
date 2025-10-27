@@ -1,10 +1,8 @@
 export const ROUTES = {
+  auth: "/",
   shop: {
     main: "/catalog",
     cart: "/cart",
-  },
-  auth: {
-    account: "/account",
   },
   checkout: {
     customer: "/checkout/customer",
