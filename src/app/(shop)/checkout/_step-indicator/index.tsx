@@ -1,4 +1,7 @@
 "use client";
+
+import { cn } from "@/src/utils/class-name-merge";
+
 export function StepIndicator({ step = 1 }: { step?: number }) {
   const labels = ["Dados", "Pagamento", "Revisão", "Status"];
   const percent = ((step - 1) / (labels.length - 1)) * 100;
@@ -8,7 +11,9 @@ export function StepIndicator({ step = 1 }: { step?: number }) {
         {labels.map((label, index) => (
           <div
             key={label}
-            className={`text-center ${index + 1 === step ? "font-semibold" : ""}`}
+            className={cn("text-center", {
+              "font-semibold": index + 1 === step,
+            })}
           >
             {label}
           </div>
