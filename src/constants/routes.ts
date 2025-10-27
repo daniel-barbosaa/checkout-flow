@@ -6,4 +6,7 @@ export const ROUTES = {
   auth: {
     account: "/account",
   },
+  checkout: {
+    customer: "/checkout/customer",
+  },
 };

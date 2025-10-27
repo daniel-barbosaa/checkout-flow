@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
-import { useSigninController } from "../app/account/signin/useSigninController";
+import { useSigninController } from "../app/account/signin/signin-controller";
 import { Spinner } from "./ui/spinner";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {

@@ -4,7 +4,7 @@ import {
   registerFormDefaultValues,
   SignUpFormSchema,
   signupFormSchema,
-} from "./sign-up-form-schema";
+} from "./signup-form-schema";
 
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";

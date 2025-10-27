@@ -5,7 +5,7 @@ import {
   SignInFormSchema,
   signInFormSchema,
   signInFormDefaultValues,
-} from "./sign-in-form-schema";
+} from "./signin-form-schema";
 import { api } from "@/src/services/api";
 import { setStorageItem } from "../../../helpers/local.storage";
 

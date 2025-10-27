@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const signInFormSchema = z.object({
-  email: z.email("Insira um e-mail válido").nonempty("E-mail é obrigatório"),
+  email: z.email().nonempty("E-mail é obrigatório"),
   password: z
     .string()
     .nonempty("Senha é obrigatória")

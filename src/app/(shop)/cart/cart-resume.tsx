@@ -8,7 +8,10 @@ import { formatPrice } from "@/src/utils/formatters/format-price";
 import { useCartStore } from "@/src/store/cart";
 
 import { CartEmpty } from "./cart-empty";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/src/constants/routes";
 export function CartResume() {
+  const router = useRouter();
   const items = useCartStore((state) => state.items);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -121,7 +124,12 @@ export function CartResume() {
               <span>Total:</span>
               <span>{formatPrice(total)}</span>
             </div>
-            <Button className="mt-4 w-full">Finalizar Pedido</Button>
+            <Button
+              className="mt-4 w-full"
+              onClick={() => router.push(ROUTES.checkout.customer)}
+            >
+              Finalizar Pedido
+            </Button>
           </div>
         </>
       )}
