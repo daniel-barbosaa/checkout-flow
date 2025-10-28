@@ -1,4 +1,3 @@
 export type PaymentMethods = {
-  type: "pix" | "card" | "boleto";
-  data?: undefined;
+  type: "pix" | "credit_card" | "boleto";
 };

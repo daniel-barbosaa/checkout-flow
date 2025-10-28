@@ -6,5 +6,6 @@ export const ROUTES = {
   },
   checkout: {
     customer: "/checkout/customer",
+    paymentForm: "/checkout/payment-method",
   },
 };

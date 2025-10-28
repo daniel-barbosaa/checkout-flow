@@ -1,8 +1,10 @@
 "use client";
 
+import { useCheckoutStore } from "@/src/store/checkout";
 import { cn } from "@/src/utils/class-name-merge";
 
-export function StepIndicator({ step = 1 }: { step?: number }) {
+export function StepIndicator() {
+  const step = useCheckoutStore((s) => s.currentStep) || 1;
   const labels = ["Dados", "Pagamento", "Revisão", "Status"];
   const percent = ((step - 1) / (labels.length - 1)) * 100;
   return (

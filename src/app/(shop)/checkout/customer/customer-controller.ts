@@ -17,9 +17,9 @@ type User = {
 export function useCustomerController() {
   const [submitting, setSubmitting] = useState(false);
   const setBuyer = useCheckoutStore((s) => s.setBuyer);
-  const { userLogged } = STORAGE_KEYS;
-  const user = getStorageItem(userLogged) as User | null;
-  console.log(user);
+  const { currentUserKey } = STORAGE_KEYS;
+  const user = getStorageItem(currentUserKey) as User | null;
+
   const {
     handleSubmit: hookFormHandleSubmit,
     register,

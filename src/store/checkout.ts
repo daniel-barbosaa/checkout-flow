@@ -1,4 +1,3 @@
-// src/store/checkout.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PaymentMethods } from "../types/payment-methods";
@@ -21,6 +20,8 @@ type StoredUser = {
 const storedUser = (getStorageItem("user") as StoredUser) || null;
 
 type CheckoutState = {
+  currentStep: number;
+  setStep: (step: number) => void;
   buyer: Buyer | null;
   payment: PaymentMethods | null;
   orderId?: string;
@@ -35,6 +36,8 @@ type CheckoutState = {
 export const useCheckoutStore = create<CheckoutState>()(
   persist(
     (set) => ({
+      currentStep: 1,
+      setStep: (step) => set({ currentStep: step }),
       buyer: storedUser
         ? { name: storedUser.name, email: storedUser.email }
         : null,

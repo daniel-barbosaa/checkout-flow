@@ -13,11 +13,19 @@ import { Input } from "@/src/components/ui/input";
 import { useCustomerController } from "./customer-controller";
 import { formatPhoneNumber } from "@/src/utils/formatters/format-phone-number";
 import { useRouter } from "next/navigation";
+import { ROUTES } from "@/src/constants/routes";
+import { useCheckoutStore } from "@/src/store/checkout";
 
 export function CustomerForm() {
   const router = useRouter();
+  const setStep = useCheckoutStore((s) => s.setStep);
   const { errors, register, handleSubmit, submitting } =
     useCustomerController();
+
+  function handleNext() {
+    router.push(ROUTES.checkout.paymentForm);
+    setStep(2);
+  }
 
   return (
     <Card>
@@ -79,12 +87,15 @@ export function CustomerForm() {
             <Field className="flex justify-between gap-2">
               <Button
                 variant="ghost"
-                onClick={() => router.back()}
+                onClick={() => {
+                  router.push(ROUTES.shop.cart);
+                  setStep(1);
+                }}
                 type="button"
               >
                 Voltar
               </Button>
-              <Button type="submit">
+              <Button type="submit" onClick={handleNext}>
                 {submitting ? "Salvando..." : "Continuar para pagamento"}
               </Button>
             </Field>
