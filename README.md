@@ -22,7 +22,13 @@ git clone https://github.com/daniel-barbosaa/checkout-flow.git
 cd checkout-flow
 ````
 
-2. Rodando o projeto
+2. Instale as dependências:
+
+```bash
+yarn
+````
+
+3. Rodando o projeto
 
 Para iniciar o servidor de desenvolvimento:
 
