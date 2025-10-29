@@ -17,12 +17,11 @@ export function CartIconInfo() {
       className="relative h-10 w-10 rounded-full"
       aria-label="Ver carrinho"
       onClick={() => router.push(ROUTES.shop.cart)}
-      disabled={itemCount <= 0}
     >
       <ShoppingCart />
 
       {itemCount > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
+        <span className="absolute -top-0.5 -right-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
           {totalItem}
         </span>
       )}

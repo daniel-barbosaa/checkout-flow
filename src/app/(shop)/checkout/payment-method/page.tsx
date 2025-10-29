@@ -15,11 +15,7 @@ export default function Page() {
   const { register, handleSubmit, submitting, selected } =
     usePaymentMethodController();
   const router = useRouter();
-  const setStep = useCheckoutStore((s) => s.setStep);
-
-  function handleNext() {
-    setStep(3);
-  }
+  const setStep = useCheckoutStore((state) => state.setStep);
 
   return (
     <div className="w-full max-w-2xl">
@@ -70,7 +66,7 @@ export default function Page() {
           >
             Voltar
           </Button>
-          <Button type="submit" disabled={submitting} onClick={handleNext}>
+          <Button type="submit" disabled={submitting}>
             {submitting ? "Salvando..." : "Continuar"}
           </Button>
         </Field>

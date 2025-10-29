@@ -18,7 +18,7 @@ import { useCheckoutStore } from "@/src/store/checkout";
 
 export function CustomerForm() {
   const router = useRouter();
-  const setStep = useCheckoutStore((s) => s.setStep);
+  const setStep = useCheckoutStore((state) => state.setStep);
   const { errors, register, handleSubmit, submitting } =
     useCustomerController();
 
@@ -84,7 +84,7 @@ export function CustomerForm() {
                 error={errors.address?.message}
               />
             </Field>
-            <Field className="flex justify-between gap-2">
+            <Field>
               <Button
                 variant="ghost"
                 onClick={() => {

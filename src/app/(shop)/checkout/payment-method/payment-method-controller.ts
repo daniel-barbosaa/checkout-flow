@@ -10,10 +10,13 @@ import { useCheckoutStore } from "@/src/store/checkout";
 
 import { PaymentMethods } from "@/src/types/payment-methods";
 import { wait } from "@/src/utils/delay";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/src/constants/routes";
 
 export function usePaymentMethodController() {
-  const setPayment = useCheckoutStore((s) => s.setPayment);
-
+  const setPayment = useCheckoutStore((state) => state.setPayment);
+  const setStep = useCheckoutStore((state) => state.setStep);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
 
   const {
@@ -35,7 +38,11 @@ export function usePaymentMethodController() {
       const payment: PaymentMethods = {
         type: data.method as "pix" | "credit_card" | "boleto",
       };
+
       setPayment(payment);
+
+      setStep(3);
+      router.push(ROUTES.checkout.review);
     } catch (err) {
       console.error(err);
     } finally {

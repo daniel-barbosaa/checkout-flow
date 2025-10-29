@@ -15,7 +15,7 @@ import { ROUTES } from "@/src/constants/routes";
 export function CartEmpty() {
   const router = useRouter();
   return (
-    <Empty>
+    <Empty className="justify-start">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <ShoppingCart />

@@ -16,7 +16,7 @@ type User = {
 
 export function useCustomerController() {
   const [submitting, setSubmitting] = useState(false);
-  const setBuyer = useCheckoutStore((s) => s.setBuyer);
+  const setBuyer = useCheckoutStore((state) => state.setBuyer);
   const { currentUserKey } = STORAGE_KEYS;
   const user = getStorageItem(currentUserKey) as User | null;
 
